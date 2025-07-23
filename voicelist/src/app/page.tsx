@@ -2,6 +2,11 @@
 
 import React, { Component } from "react";
 import image from "../images/delete.png";
+import sortDownArrow from "../images/sort-down.png";
+import sortUpArrow from "../images/sort-up.png";
+
+const SORTDOWNARROW = sortDownArrow.src;
+const SORTUPARROW = sortUpArrow.src;
 const DELETEICON = image.src;
 
 export default function Home() {
@@ -10,6 +15,8 @@ export default function Home() {
     <div id ="voicelist-home">
       <h1>VoiceList</h1>
       <CategoryList />
+      <SortDownArrow />
+      <SortUpArrow />
     </div>
   );
 }
@@ -52,4 +59,14 @@ function DeleteIcon() {
   );
 }
 
+function SortDownArrow() {
+  return (
+    <img src={SORTDOWNARROW} alt="Sort Down" />
+  )
+}
 
+function SortUpArrow() {
+  return (
+    <img src={SORTUPARROW} alt="Sort Up" />
+  )
+}
