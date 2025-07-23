@@ -23,6 +23,7 @@
 # misc
 .DS_Store
 *.pem
+/src/app/defaultpage.tsx
 
 # debug
 npm-debug.log*
