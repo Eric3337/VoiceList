@@ -48,7 +48,7 @@ function SortDownArrow() {
 function CreationDateFilter() {
   return (
     <div id="creation-date-filter">
-      <h3>Creation Date</h3>
+      <h3>Date</h3>
       <SortDownArrow />
     </div>
   )
