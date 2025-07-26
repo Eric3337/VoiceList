@@ -97,10 +97,32 @@ function RecordButton() {
   )
 }
 
+function ItemRow() {
+  return (
+    <li>
+      <div className="item-row">
+        [Item Name] 
+        <DeleteIcon />
+      </div>
+    </li>
+  )
+}
+
 function ItemList() {
   return (
+    <div className="item-list">
+      <ul>
+        <ItemRow />
+      </ul>
+    </div>
+  )
+}
+
+function ItemListMenu() {
+  return (
     <div id="item-list" style={{ backgroundColor: "pink"}}>
-      testing
+      [Name of Selected Category]
+      <ItemList />
     </div>
   )
 } 
@@ -116,13 +138,12 @@ function CategoryList() {
 }
 
 export default function Home() {
-  console.log(image);
   return (
-    <div id ="voicelist-home">
-      <h1>VoiceList</h1>
-      <div className="main-content">
+    <div className="flex h-screen">
+      <p>VoiceList</p>
+      <div className="flex items-center">
         <CategoryList />
-        <ItemList />
+        <ItemListMenu />
       </div>
       <RecordButton />
     </div>
