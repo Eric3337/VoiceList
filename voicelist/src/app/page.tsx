@@ -139,7 +139,7 @@ function CategoryList() {
 
 export default function Home() {
   return (
-    <div className="flex h-screen">
+    <div className="flex flex-col items-center h-screen place-content-center">
       <p>VoiceList</p>
       <div className="flex items-center">
         <CategoryList />
