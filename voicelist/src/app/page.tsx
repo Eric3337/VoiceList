@@ -47,7 +47,7 @@ function SortDownArrow() {
 
 function CreationDateFilter() {
   return (
-    <div id="creation-date-filter">
+    <div className="flex flex-row">
       <h3>Date</h3>
       <SortDownArrow />
     </div>
@@ -56,7 +56,7 @@ function CreationDateFilter() {
 
 function NameFilter() {
   return (
-    <div id="name-filter">
+    <div className="flex flex-row">
       <h3>Name</h3>
       <SortDownArrow />
     </div>
@@ -88,7 +88,7 @@ function CategorySearchBar() {
 function RecordButton() {
   return (
     <a href="#">
-      <button id="record-button" style={{ backgroundColor: "red"}}>
+      <button className="bg-red-500 m-10">
         <label>
           Record
         </label>
@@ -100,8 +100,8 @@ function RecordButton() {
 function ItemRow() {
   return (
     <li>
-      <div className="item-row">
-        [Item Name] 
+      <div className="flex flex-row">
+        [Item Name]
         <DeleteIcon />
       </div>
     </li>
@@ -113,6 +113,8 @@ function ItemList() {
     <div className="item-list">
       <ul>
         <ItemRow />
+        <ItemRow />
+        <ItemRow />
       </ul>
     </div>
   )
@@ -120,7 +122,7 @@ function ItemList() {
 
 function ItemListMenu() {
   return (
-    <div id="item-list" style={{ backgroundColor: "pink"}}>
+    <div className="bg-sky-500">
       [Name of Selected Category]
       <ItemList />
     </div>
@@ -129,9 +131,11 @@ function ItemListMenu() {
 
 function CategoryList() {
   return (
-    <div id="category-list" style={{ backgroundColor: "lightblue"}}>
-      <h2 id="category-list-title">Categories</h2>
-      <CategorySearchBar />
+    <div className="bg-orange-500">
+      <div className="flex flex-row">
+        <h2>Categories</h2>
+        <CategorySearchBar />
+      </div>
       <CategoryTable />
     </div>
   );
@@ -139,13 +143,25 @@ function CategoryList() {
 
 export default function Home() {
   return (
-    <div className="flex flex-col items-center h-screen place-content-center">
-      <p>VoiceList</p>
-      <div className="flex items-center">
-        <CategoryList />
-        <ItemListMenu />
-      </div>
-      <RecordButton />
-    </div>
+    <>
+      <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      </head>
+      <body>
+        <header></header>
+        <main>
+          <div className="grid grid-rows-3 bg-emerald-500 h-full">
+            <p className="bg-blue-500 text-3xl ">VoiceList</p>
+            <div className="grid grid-cols-2 bg-yellow-500">
+              <CategoryList />
+              <ItemListMenu />
+            </div>
+            <RecordButton />
+            
+          </div>
+        </main>
+        <footer></footer>
+      </body>
+    </>
   );
 }
