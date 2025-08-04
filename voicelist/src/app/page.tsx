@@ -88,9 +88,8 @@ function CategorySearchBar() {
 function RecordButton() {
   return (
     <a href="#">
-      <button className="bg-red-500 m-10">
+      <button className="bg-red-500 m-12 p-6">
         <label>
-          Record
         </label>
       </button>
     </a>
@@ -144,24 +143,19 @@ function CategoryList() {
 export default function Home() {
   return (
     <>
-      <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      </head>
-      <body>
-        <header></header>
+      <header></header>
         <main>
-          <div className="grid grid-rows-3 bg-emerald-500 h-full">
+          <div className="grid grid-rows-[auto_1fr_auto] bg-emerald-500 min-h-screen">
             <p className="bg-blue-500 text-3xl ">VoiceList</p>
             <div className="grid grid-cols-2 bg-yellow-500">
               <CategoryList />
               <ItemListMenu />
             </div>
-            <RecordButton />
+            <div className="grid justify-items-center"><RecordButton /></div>
             
           </div>
         </main>
-        <footer></footer>
-      </body>
+      <footer></footer>
     </>
   );
 }
