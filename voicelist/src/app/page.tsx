@@ -87,20 +87,17 @@ function CategorySearchBar() {
 
 function RecordButton() {
   return (
-    <a href="#">
-      <button className="bg-red-500 m-12 p-6">
-        <label>
-        </label>
-      </button>
-    </a>
+    <div className="m-12">
+      <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" className="p-5 px-7 rounded-4xl bg-red-500"></a>
+    </div>
   )
 }
 
 function ItemRow() {
   return (
     <li>
-      <div className="flex flex-row">
-        [Item Name]
+      <div className="flex flex-row bg-gray-500">
+        <p className="basis-6/7 pl-5">- [Item Name]</p>
         <DeleteIcon />
       </div>
     </li>
@@ -110,7 +107,7 @@ function ItemRow() {
 function ItemList() {
   return (
     <div className="item-list">
-      <ul>
+      <ul className="flex-col space-y-2">
         <ItemRow />
         <ItemRow />
         <ItemRow />
@@ -121,8 +118,8 @@ function ItemList() {
 
 function ItemListMenu() {
   return (
-    <div className="bg-sky-500">
-      [Name of Selected Category]
+    <div className="bg-sky-500 col-start-4 col-span-4 p-5">
+      <p className="text-2xl text-center">[Name of Selected Category]</p>
       <ItemList />
     </div>
   )
@@ -130,7 +127,7 @@ function ItemListMenu() {
 
 function CategoryList() {
   return (
-    <div className="bg-orange-500">
+    <div className="bg-orange-500 col-start-2 col-span-2">
       <div className="flex flex-row">
         <h2>Categories</h2>
         <CategorySearchBar />
@@ -146,8 +143,8 @@ export default function Home() {
       <header></header>
         <main>
           <div className="grid grid-rows-[auto_1fr_auto] bg-emerald-500 min-h-screen">
-            <p className="bg-blue-500 text-3xl ">VoiceList</p>
-            <div className="grid grid-cols-2 bg-yellow-500">
+            <p className="bg-blue-500 text-5xl text-center mt-30">VoiceList</p>
+            <div className="grid grid-cols-8 gap-5 bg-yellow-500">
               <CategoryList />
               <ItemListMenu />
             </div>
