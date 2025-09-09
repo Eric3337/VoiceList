@@ -10,9 +10,12 @@ const SORTUPARROW = sortUpArrow.src;
 const DELETEICON = image.src;
 
 function DeleteIcon() {
+  function handleClick() {
+    alert("Delete icon clicked");
+  }
   return (
     <div>
-      <button className="delete-icon">
+      <button className="delete-icon" onClick={handleClick}>
         <img src={DELETEICON} alt="Delete" />
       </button>
     </div>
@@ -96,7 +99,7 @@ function RecordButton() {
 function ItemRow() {
   return (
     <li>
-      <div className="flex flex-row bg-gray-500">
+      <div className="flex flex-row">
         <p className="basis-6/7 pl-5">- [Item Name]</p>
         <DeleteIcon />
       </div>
@@ -118,7 +121,7 @@ function ItemList() {
 
 function ItemListMenu() {
   return (
-    <div className="bg-sky-500 col-start-4 col-span-4 p-5">
+    <div className="col-start-4 col-span-4 p-5">
       <p className="text-2xl text-center">[Name of Selected Category]</p>
       <ItemList />
     </div>
@@ -127,7 +130,7 @@ function ItemListMenu() {
 
 function CategoryList() {
   return (
-    <div className="bg-orange-500 col-start-2 col-span-2">
+    <div className="col-start-2 col-span-2">
       <div className="flex flex-row">
         <h2>Categories</h2>
         <CategorySearchBar />
@@ -142,9 +145,9 @@ export default function Home() {
     <>
       <header></header>
         <main>
-          <div className="grid grid-rows-[auto_1fr_auto] bg-emerald-500 min-h-screen">
-            <p className="bg-blue-500 text-5xl text-center mt-30">VoiceList</p>
-            <div className="grid grid-cols-8 gap-5 bg-yellow-500">
+          <div className="grid grid-rows-[auto_1fr_auto] min-h-screen">
+            <p className="text-5xl text-center mt-30">VoiceList</p>
+            <div className="grid grid-cols-8 gap-5">
               <CategoryList />
               <ItemListMenu />
             </div>
