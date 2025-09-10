@@ -1,6 +1,6 @@
 "use client";
 
-import React, { Component } from "react";
+import { useState } from "react";
 import image from "../images/delete.png";
 import sortDownArrow from "../images/sort-down.png";
 import sortUpArrow from "../images/sort-up.png";
@@ -11,7 +11,8 @@ const DELETEICON = image.src;
 
 function DeleteIcon() {
   function handleClick() {
-    alert("Delete icon clicked");
+    let tableBody = document.getElementsByClassName("category-table-body")[0];
+    console.log(tableBody);
   }
   return (
     <div>
@@ -88,10 +89,18 @@ function CategorySearchBar() {
   );
 }
 
+function AddRowButton({ onAddRow }: { onAddRow: () => void }) {
+  return (
+    <div className="m-12">
+      <a onClick={onAddRow} className="p-5 px-7 rounded-4xl bg-red-500"></a>
+    </div>
+  )
+}
+
 function RecordButton() {
   return (
     <div className="m-12">
-      <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" className="p-5 px-7 rounded-4xl bg-red-500"></a>
+      <a className="p-5 px-7 rounded-4xl bg-red-500"></a>
     </div>
   )
 }
@@ -108,13 +117,20 @@ function ItemRow() {
 }
 
 function ItemList() {
+  const [itemRows, setItemRows ] = useState([0]);
+
+  const addRow = () => {
+    setItemRows([...itemRows, itemRows.length]);
+  };
+
   return (
     <div className="item-list">
-      <ul className="flex-col space-y-2">
-        <ItemRow />
-        <ItemRow />
-        <ItemRow />
+      <ul id="item-list" className="flex-col space-y-2">
+        {itemRows.map((rowId) => (
+          <ItemRow key={rowId} />
+        ))}
       </ul>
+      <AddRowButton onAddRow={addRow} />
     </div>
   )
 }
@@ -123,7 +139,7 @@ function ItemListMenu() {
   return (
     <div className="col-start-4 col-span-4 p-5">
       <p className="text-2xl text-center">[Name of Selected Category]</p>
-      <ItemList />
+      <ItemList/>
     </div>
   )
 } 
