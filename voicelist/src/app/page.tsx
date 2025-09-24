@@ -9,7 +9,9 @@ const SORTDOWNARROW = sortDownArrow.src;
 const SORTUPARROW = sortUpArrow.src;
 const DELETEICON = image.src;
 
-function DeleteIcon() {
+
+
+function DeleteIcon({ onSubRow }: { onSubRow: () => void }) {
   function handleClick() {
     let tableBody = document.getElementsByClassName("category-table-body")[0];
     console.log(tableBody);
@@ -17,7 +19,21 @@ function DeleteIcon() {
   return (
     <div>
       <button className="delete-icon" onClick={handleClick}>
-        <img src={DELETEICON} alt="Delete" />
+        <img src={DELETEICON} alt="Delete" onClick={onSubRow}/>
+      </button>
+    </div>
+  );
+}
+
+function ItemDeleteIcon({ onSubRow }: { onSubRow: () => void }) {
+  function handleClick() {
+    let tableBody = document.getElementsByClassName("category-table-body")[0];
+    console.log(tableBody);
+  }
+  return (
+    <div>
+      <button className="delete-icon" onClick={handleClick}>
+        <img src={DELETEICON} alt="Delete" onClick={onSubRow}/>
       </button>
     </div>
   );
@@ -97,49 +113,42 @@ function AddRowButton({ onAddRow }: { onAddRow: () => void }) {
   )
 }
 
-function RecordButton() {
+function RecordButton({ onAddRow }: { onAddRow: () => void }) {
   return (
     <div className="m-12">
-      <a className="p-5 px-7 rounded-4xl bg-red-500"></a>
+      <a onClick={onAddRow} className="p-5 px-7 rounded-4xl bg-red-500">Add item</a>
     </div>
   )
 }
 
-function ItemRow() {
+function ItemRow({ subRow }: { subRow: () => void }) {
   return (
     <li>
       <div className="flex flex-row">
         <p className="basis-6/7 pl-5">- [Item Name]</p>
-        <DeleteIcon />
+        <ItemDeleteIcon onSubRow={subRow}/>
       </div>
     </li>
   )
 }
 
-function ItemList() {
-  const [itemRows, setItemRows ] = useState([0]);
-
-  const addRow = () => {
-    setItemRows([...itemRows, itemRows.length]);
-  };
-
+function ItemList({ itemRows, subRow }: { itemRows: number[], subRow: () => void }) {
   return (
     <div className="item-list">
       <ul id="item-list" className="flex-col space-y-2">
         {itemRows.map((rowId) => (
-          <ItemRow key={rowId} />
+          <ItemRow key={rowId} subRow={subRow}/>
         ))}
       </ul>
-      <AddRowButton onAddRow={addRow} />
     </div>
   )
 }
 
-function ItemListMenu() {
+function ItemListMenu({ itemRows, subRow }: { itemRows: number[], subRow: () => void }) {
   return (
     <div className="col-start-4 col-span-4 p-5">
       <p className="text-2xl text-center">[Name of Selected Category]</p>
-      <ItemList/>
+      <ItemList itemRows={itemRows} subRow={subRow} />
     </div>
   )
 } 
@@ -157,6 +166,15 @@ function CategoryList() {
 }
 
 export default function Home() {
+  const [itemRows, setItemRows ] = useState([0]);
+  const addRow = () => {
+    setItemRows(prev => [...prev, prev.length]);
+  };
+  
+  const subRow = () => {
+    setItemRows(prev => prev.length > 0 ? prev.slice(0, -1) : prev);
+  };
+
   return (
     <>
       <header></header>
@@ -165,10 +183,9 @@ export default function Home() {
             <p className="text-5xl text-center mt-30">VoiceList</p>
             <div className="grid grid-cols-8 gap-5">
               <CategoryList />
-              <ItemListMenu />
+              <ItemListMenu itemRows={itemRows} subRow={subRow}/>
             </div>
-            <div className="grid justify-items-center"><RecordButton /></div>
-            
+            <div className="grid justify-items-center"><RecordButton onAddRow={addRow}/></div>
           </div>
         </main>
       <footer></footer>
