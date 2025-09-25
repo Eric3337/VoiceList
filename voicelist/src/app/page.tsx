@@ -11,15 +11,11 @@ const DELETEICON = image.src;
 
 
 
-function DeleteIcon({ onSubRow }: { onSubRow: () => void }) {
-  function handleClick() {
-    let tableBody = document.getElementsByClassName("category-table-body")[0];
-    console.log(tableBody);
-  }
+function DeleteIcon({ onSubCatRow }: { onSubCatRow: () => void }) {
   return (
     <div>
-      <button className="delete-icon" onClick={handleClick}>
-        <img src={DELETEICON} alt="Delete" onClick={onSubRow}/>
+      <button className="delete-icon" onClick={onSubCatRow}>
+        <img src={DELETEICON} alt="Delete"/>
       </button>
     </div>
   );
@@ -39,12 +35,12 @@ function ItemDeleteIcon({ onSubRow }: { onSubRow: () => void }) {
   );
 }
 
-function CategoryRow() {
+function CategoryRow({ id, subCatRow }: {id: number, subCatRow: () => void}) {
   return (
     <tr>
-      <td>[Category Name]</td>
+      <td>[Category Name {id}]</td>
       <td>[Date of Creation]</td>
-      <td><DeleteIcon /></td>
+      <td><DeleteIcon onSubCatRow={subCatRow}/></td>
     </tr>
   );
 }
@@ -83,7 +79,9 @@ function NameFilter() {
   )
 }
 
-function CategoryTable() {
+function CategoryTable({ catRows, subCatRow }: { catRows: number[], subCatRow: () => void }) {
+
+
   return (
     <table>
       <thead>
@@ -92,7 +90,11 @@ function CategoryTable() {
           <th><CreationDateFilter /></th>
         </tr>
       </thead>
-      <tbody><CategoryRow /></tbody>
+      <tbody>
+        {catRows.map((rowId, index) => (
+          <CategoryRow key={rowId} id={index} subCatRow={subCatRow} />
+        ))}
+      </tbody>
     </table>
   )
 }
@@ -121,11 +123,11 @@ function RecordButton({ onAddRow }: { onAddRow: () => void }) {
   )
 }
 
-function ItemRow({ subRow }: { subRow: () => void }) {
+function ItemRow({ id, subRow }: { id: number, subRow: () => void }) {
   return (
     <li>
       <div className="flex flex-row">
-        <p className="basis-6/7 pl-5">- [Item Name]</p>
+        <p className="basis-6/7 pl-5">- [Item Name {id}]</p>
         <ItemDeleteIcon onSubRow={subRow}/>
       </div>
     </li>
@@ -136,8 +138,8 @@ function ItemList({ itemRows, subRow }: { itemRows: number[], subRow: () => void
   return (
     <div className="item-list">
       <ul id="item-list" className="flex-col space-y-2">
-        {itemRows.map((rowId) => (
-          <ItemRow key={rowId} subRow={subRow}/>
+        {itemRows.map((rowId, index) => (
+          <ItemRow key={rowId} id={index + 1} subRow={subRow}/>
         ))}
       </ul>
     </div>
@@ -153,26 +155,44 @@ function ItemListMenu({ itemRows, subRow }: { itemRows: number[], subRow: () => 
   )
 } 
 
-function CategoryList() {
+function AddCatButton({ onAddCatRow }: { onAddCatRow: () => void }) {
   return (
-    <div className="col-start-2 col-span-2">
+    <div className="m-12">
+      <a onClick={onAddCatRow} className="p-5 px-7 rounded-4xl bg-red-500">Add category</a>
+    </div>
+  )
+}
+
+function CategoryList({ catRows, addCatRow, subCatRow }: { catRows: number[], addCatRow: () => void, subCatRow: () => void}) {
+  return (
+    <div className="col-start-2 col-span-2 bg-blue-500">
       <div className="flex flex-row">
-        <h2>Categories</h2>
+        <h2 className="text-xl">Categories</h2>
         <CategorySearchBar />
       </div>
-      <CategoryTable />
+      <AddCatButton onAddCatRow={addCatRow}/>
+      <CategoryTable catRows={catRows} subCatRow={subCatRow}/>
     </div>
   );
 }
 
 export default function Home() {
-  const [itemRows, setItemRows ] = useState([0]);
+  const [ itemRows, setItemRows ] = useState([0]);
   const addRow = () => {
     setItemRows(prev => [...prev, prev.length]);
   };
   
   const subRow = () => {
     setItemRows(prev => prev.length > 0 ? prev.slice(0, -1) : prev);
+  };
+
+  const [ catRows, setCatRows ] = useState([0]);
+  const addCatRow = () => {
+    setCatRows(prev => [...prev, prev.length]);
+  };
+
+  const subCatRow = () => {
+    setCatRows(prev => prev.length > 0 ? prev.slice(0, -1) : prev);
   };
 
   return (
@@ -182,7 +202,7 @@ export default function Home() {
           <div className="grid grid-rows-[auto_1fr_auto] min-h-screen">
             <p className="text-5xl text-center mt-30">VoiceList</p>
             <div className="grid grid-cols-8 gap-5">
-              <CategoryList />
+              <CategoryList catRows={catRows} addCatRow={addCatRow} subCatRow={subCatRow} />
               <ItemListMenu itemRows={itemRows} subRow={subRow}/>
             </div>
             <div className="grid justify-items-center"><RecordButton onAddRow={addRow}/></div>
