@@ -102,7 +102,7 @@ function CategoryTable({ catRows, subCatRow }: { catRows: number[], subCatRow: (
 function CategorySearchBar() {
   return (
     <form id="category-search-bar">
-      <input type="text" placeholder="Search..." />
+      <input type="text" placeholder="Search..." className="w-full"/>
     </form>
   );
 }
@@ -155,20 +155,22 @@ function ItemListMenu({ itemRows, subRow }: { itemRows: number[], subRow: () => 
   )
 } 
 
+// p-5 px-7 rounded-4xl bg-red-500
 function AddCatButton({ onAddCatRow }: { onAddCatRow: () => void }) {
   return (
     <div className="m-12">
-      <a onClick={onAddCatRow} className="p-5 px-7 rounded-4xl bg-red-500">Add category</a>
+      <button onClick={onAddCatRow} className="bg-gray-100 hover:bg-gray-200 font-bold py-2 px-4 rounded">Add category</button>
     </div>
   )
 }
 
+
 function CategoryList({ catRows, addCatRow, subCatRow }: { catRows: number[], addCatRow: () => void, subCatRow: () => void}) {
   return (
     <div className="col-start-2 col-span-2 bg-blue-500">
-      <div className="flex flex-row">
-        <h2 className="text-xl">Categories</h2>
-        <CategorySearchBar />
+      <div className="flex flex-row gap-[1vw]">
+        <h2 className="text-xl basis-1/3">Categories</h2>
+        <div className="basis-2/3"><CategorySearchBar /></div>
       </div>
       <AddCatButton onAddCatRow={addCatRow}/>
       <CategoryTable catRows={catRows} subCatRow={subCatRow}/>
