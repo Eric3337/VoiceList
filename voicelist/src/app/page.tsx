@@ -14,7 +14,7 @@ const DELETEICON = image.src;
 function DeleteIcon({ onSubCatRow }: { onSubCatRow: () => void }) {
   return (
     <div>
-      <button className="delete-icon" onClick={onSubCatRow}>
+      <button className="bg-sky-500 hover:bg-sky-700 cursor-pointer rounded-md shadow-md shadow-sky-300" onClick={onSubCatRow}>
         <img src={DELETEICON} alt="Delete"/>
       </button>
     </div>
@@ -39,7 +39,7 @@ function CategoryRow({ id, subCatRow }: {id: number, subCatRow: () => void}) {
   return (
     <tr>
       <td>[Category Name {id}]</td>
-      <td>[Date of Creation]</td>
+      <td>{new Date().toLocaleDateString()}</td>
       <td><DeleteIcon onSubCatRow={subCatRow}/></td>
     </tr>
   );
@@ -63,7 +63,7 @@ function SortDownArrow() {
 
 function CreationDateFilter() {
   return (
-    <div className="flex flex-row">
+    <div className="flex flex-row px-4 py-2 text-left text-sm font-medium text-gray-600 border-b">
       <h3>Date</h3>
       <SortDownArrow />
     </div>
@@ -72,7 +72,7 @@ function CreationDateFilter() {
 
 function NameFilter() {
   return (
-    <div className="flex flex-row">
+    <div className="flex flex-row px-4 py-2 text-left text-sm font-medium text-gray-600 border-b">
       <h3>Name</h3>
       <SortDownArrow />
     </div>
@@ -80,22 +80,26 @@ function NameFilter() {
 }
 
 function CategoryTable({ catRows, subCatRow }: { catRows: number[], subCatRow: () => void }) {
-
-
   return (
-    <table>
-      <thead>
-        <tr>
-          <th><NameFilter /></th>
-          <th><CreationDateFilter /></th>
-        </tr>
-      </thead>
-      <tbody>
-        {catRows.map((rowId, index) => (
-          <CategoryRow key={rowId} id={index} subCatRow={subCatRow} />
-        ))}
-      </tbody>
-    </table>
+    <div className="overflow-y-auto h-[60vh]">
+      <table>
+        <thead>
+          <tr>
+            <th><NameFilter /></th>
+            <th><CreationDateFilter /></th>
+          </tr>
+        </thead>
+        <tbody>
+          {catRows.length === 0 ? (
+            <tr><td>No categories found</td></tr>
+          ) : (
+            catRows.map((rowId, index) => (
+              <CategoryRow key={rowId} id={index} subCatRow={subCatRow} />
+            ))
+          )}
+        </tbody>
+      </table>
+    </div>
   )
 }
 
@@ -158,8 +162,9 @@ function ItemListMenu({ itemRows, subRow }: { itemRows: number[], subRow: () => 
 // p-5 px-7 rounded-4xl bg-red-500
 function AddCatButton({ onAddCatRow }: { onAddCatRow: () => void }) {
   return (
-    <div className="m-12">
-      <button onClick={onAddCatRow} className="bg-gray-100 hover:bg-gray-200 font-bold py-2 px-4 rounded">Add category</button>
+    <div className="m-1">
+      <button onClick={onAddCatRow} className="bg-gray-100 hover:bg-gray-200 font-bold py-2 px-4 rounded">
+        +</button>
     </div>
   )
 }
@@ -167,12 +172,11 @@ function AddCatButton({ onAddCatRow }: { onAddCatRow: () => void }) {
 
 function CategoryList({ catRows, addCatRow, subCatRow }: { catRows: number[], addCatRow: () => void, subCatRow: () => void}) {
   return (
-    <div className="col-start-2 col-span-2 bg-blue-500">
+    <div className="col-start-2 col-span-2">
       <div className="flex flex-row gap-[1vw]">
         <h2 className="text-xl basis-1/3">Categories</h2>
         <div className="basis-2/3"><CategorySearchBar /></div>
       </div>
-      <AddCatButton onAddCatRow={addCatRow}/>
       <CategoryTable catRows={catRows} subCatRow={subCatRow}/>
     </div>
   );
@@ -207,7 +211,10 @@ export default function Home() {
               <CategoryList catRows={catRows} addCatRow={addCatRow} subCatRow={subCatRow} />
               <ItemListMenu itemRows={itemRows} subRow={subRow}/>
             </div>
-            <div className="grid justify-items-center"><RecordButton onAddRow={addRow}/></div>
+            <div className="flex items-center justify-center gap-4">
+              <AddCatButton onAddCatRow={addCatRow}/>
+              <div className="grid justify-items-center"><RecordButton onAddRow={addRow}/></div>
+            </div>
           </div>
         </main>
       <footer></footer>
