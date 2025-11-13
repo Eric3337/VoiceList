@@ -14,7 +14,7 @@ const DELETEICON = image.src;
 function DeleteIcon({ onSubCatRow }: { onSubCatRow: () => void }) {
   return (
     <div>
-      <button className="bg-sky-500 hover:bg-sky-700 cursor-pointer rounded-md shadow-md shadow-sky-300" onClick={onSubCatRow}>
+      <button className="bg-sky-500 hover:bg-sky-600 cursor-pointer rounded-md shadow-md shadow-sky-300" onClick={onSubCatRow}>
         <img src={DELETEICON} alt="Delete"/>
       </button>
     </div>
@@ -28,7 +28,7 @@ function ItemDeleteIcon({ onSubRow }: { onSubRow: () => void }) {
   }
   return (
     <div>
-      <button className="delete-icon" onClick={handleClick}>
+      <button className="hover:bg-sky-200 cursor-pointer rounded-md shadow-md shadow-sky-300" onClick={handleClick}>
         <img src={DELETEICON} alt="Delete" onClick={onSubRow}/>
       </button>
     </div>
@@ -122,7 +122,7 @@ function AddRowButton({ onAddRow }: { onAddRow: () => void }) {
 function RecordButton({ onAddRow }: { onAddRow: () => void }) {
   return (
     <div className="m-12">
-      <a onClick={onAddRow} className="p-5 px-7 rounded-4xl bg-red-500">Add item</a>
+      <a onClick={onAddRow} className="bg-red-500 hover:bg-red-600 cursor-pointer rounded-md shadow-md shadow-sky-300 p-5 px-7 rounded-4xl">Add item</a>
     </div>
   )
 }
@@ -172,7 +172,7 @@ function AddCatButton({ onAddCatRow }: { onAddCatRow: () => void }) {
 
 function CategoryList({ catRows, addCatRow, subCatRow }: { catRows: number[], addCatRow: () => void, subCatRow: () => void}) {
   return (
-    <div className="col-start-2 col-span-2">
+    <div className="col-start-2 col-span-2 pt-5">
       <div className="flex flex-row gap-[1vw]">
         <h2 className="text-xl basis-1/3">Categories</h2>
         <div className="basis-2/3"><CategorySearchBar /></div>
@@ -201,19 +201,26 @@ export default function Home() {
     setCatRows(prev => prev.length > 0 ? prev.slice(0, -1) : prev);
   };
 
+  const LAVENDER_BLUSH = "#f3e8ee"; 
+
+  // https://coolors.co/0d5c63-63b0cd-99ffa3-f3e8ee-9d695a
+  // colour palette for website
+
   return (
     <>
       <header></header>
         <main>
           <div className="grid grid-rows-[auto_1fr_auto] min-h-screen">
-            <p className="text-5xl text-center mt-30">VoiceList</p>
+            <p className="text-5xl text-center pt-10 pb-5 bg-gray-200">VoiceList</p>
             <div className="grid grid-cols-8 gap-5">
               <CategoryList catRows={catRows} addCatRow={addCatRow} subCatRow={subCatRow} />
               <ItemListMenu itemRows={itemRows} subRow={subRow}/>
             </div>
-            <div className="flex items-center justify-center gap-4">
+            <div className="flex items-center justify-center gap-4 bg-moonstone">
               <AddCatButton onAddCatRow={addCatRow}/>
-              <div className="grid justify-items-center"><RecordButton onAddRow={addRow}/></div>
+              <div className="grid justify-items-center">
+                <RecordButton onAddRow={addRow}/>
+              </div>
             </div>
           </div>
         </main>
