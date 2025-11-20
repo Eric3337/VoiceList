@@ -152,7 +152,7 @@ function ItemList({ itemRows, subRow }: { itemRows: number[], subRow: () => void
 
 function ItemListMenu({ itemRows, subRow }: { itemRows: number[], subRow: () => void }) {
   return (
-    <div className="col-start-4 col-span-4 p-5">
+    <div className="col-start-4 col-span-4 p-5 bg-lavender-blush">
       <p className="text-2xl text-center">[Name of Selected Category]</p>
       <ItemList itemRows={itemRows} subRow={subRow} />
     </div>
@@ -172,7 +172,7 @@ function AddCatButton({ onAddCatRow }: { onAddCatRow: () => void }) {
 
 function CategoryList({ catRows, addCatRow, subCatRow }: { catRows: number[], addCatRow: () => void, subCatRow: () => void}) {
   return (
-    <div className="col-start-2 col-span-2 pt-5">
+    <div className="col-start-2 col-span-2 pt-5 bg-lavender-blush">
       <div className="flex flex-row gap-[1vw]">
         <h2 className="text-xl basis-1/3">Categories</h2>
         <div className="basis-2/3"><CategorySearchBar /></div>
@@ -211,8 +211,8 @@ export default function Home() {
       <header></header>
         <main>
           <div className="grid grid-rows-[auto_1fr_auto] min-h-screen">
-            <p className="text-5xl text-center pt-10 pb-5 bg-gray-200">VoiceList</p>
-            <div className="grid grid-cols-8 gap-5">
+            <p className="text-5xl text-center pt-10 pb-5 bg-light-green">VoiceList</p>
+            <div className="grid grid-cols-8 gap-5 bg-redwood">
               <CategoryList catRows={catRows} addCatRow={addCatRow} subCatRow={subCatRow} />
               <ItemListMenu itemRows={itemRows} subRow={subRow}/>
             </div>
